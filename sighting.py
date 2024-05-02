@@ -12,3 +12,6 @@ def main():
             display_menu()
         elif command == "exit":
             break
+
+
+main()
