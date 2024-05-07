@@ -13,7 +13,11 @@ def venomous_display():
 
 
 def display_sightings(sightings):
-    pass
+    # print the list of animal sightings 
+    
+    for sighting in sightings:
+        print(f"Start Date: {sighting['properties']['StartDate']}, Locality: {sighting['properties']['LocalityDetails']}")
+
 
 def display_species(species_list):
     pass
