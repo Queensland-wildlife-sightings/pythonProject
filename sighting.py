@@ -12,6 +12,12 @@ def venomous_display():
     pass
 
 
+def filter_venomous(species_list):
+    #fiter to choice the Venomous
+    return [species for species in species_list 
+            if species['Species']['PestStatus'] == 'Venomous']
+
+
 def display_sightings(sightings):
     # print the list of animal sightings 
     
