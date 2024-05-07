@@ -20,7 +20,10 @@ def display_sightings(sightings):
 
 
 def display_species(species_list):
-    pass
+    #display each species in the list
+    for species in species_list:
+        print(f"Species: {species['Species']['AcceptedCommonName']},
+                Pest Status: {species['Species']['PestStatus']}")
 
 def main():
     while True:
@@ -57,7 +60,9 @@ def search_species(city):
         {"Species":{"AcceptedCommonName":"snake","PestStatus":"Venomous"}}
     ]
 def search_species(taxonid, city):
-    pass
+    #  return a fixed list of animal sightings
+    return [{"properties": {"StartDate": "1999-11-15", 
+                            "LocalityDetails": "Tinaroo"}}]
 
 
 main()
