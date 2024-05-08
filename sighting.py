@@ -27,23 +27,20 @@ def display_sightings(sightings):
 
 def display_species(species_list):
     #display each species in the list
-    # for species in species_list:
-    #     print(f"Species: {species['Species']['AcceptedCommonName']},
-    #             Pest Status: {species['Species']['PestStatus']}")
-    pass
+    for species in species_list:
+        pass
+     
 
 def main():
     
 
     while True:
-    
-         
         command = input("wildlife> ")
         input_commands = command.split(" ")
         
 
-        if len(input_commands) == 0 and command =="help" :
-        #if command == "help":
+        # if len(input_commands) == 0 and command =="help" :
+        if command == "help":
             display_menu()
 
         # elif len(input_commands) == 0 and input_commands[0] == "exit":
@@ -51,8 +48,7 @@ def main():
         elif input_commands[0] == "species":
             if len(input_commands) > 1:
                 city  = input_commands[1]
-                #print(city)
-                 
+                
                 spc_list = search_species(city)
                 display_species(spc_list)
 
@@ -80,7 +76,7 @@ def search_species(city):
         {"Species":{"AcceptedCommonName":"snake","PestStatus":"Venomous"}}
     ]
 
-def search_species(taxonid, city):
+def sear_species(taxonid, city):
     #  return a fixed list of animal sightings
     return [{"properties": {"StartDate": "1999-11-15", 
                             "LocalityDetails": "Tinaroo"}}]
