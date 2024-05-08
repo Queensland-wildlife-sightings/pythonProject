@@ -19,24 +19,37 @@ def display_species(species_list):
     pass
 
 def main():
+    
+
     while True:
-        city = input("wildlife> species city")
+    
+         
         command = input("wildlife> ")
-        if command == "help":
+        input_commands = command.split(" ")
+        
+
+        if len(input_commands) == 0 and command =="help" :
+        #if command == "help":
             display_menu()
-        if command == input("wildlife> species city"):
-            search_species(city)
-           # display_species(species_list)
 
-        if command == input("wildlife> species Cairns venomous"):
-            pass
+        # elif len(input_commands) == 0 and input_commands[0] == "exit":
+        #     break
+        elif input_commands[0] == "species":
+            if len(input_commands) > 1:
+                city  = input_commands[1]
+                #print(city)
+                 
+                spc_list = search_species(city)
+                display_species(spc_list)
+
+     
 
 
-        if command == input("wildlife> sightings"):
+        
         # Update main() to accept the command “sightings” followed by a species, a comma and an
         # area. When this command is received, use the search_sightings(species,area) and
         # display_sightings(sightings) functions to display a list of sightings to the user.
-            pass
+            
 
 
 
@@ -52,8 +65,8 @@ def search_species(city):
         {"Species":{"AcceptedCommonName":"dolphin", "PestStatus":"Nil"}},
         {"Species":{"AcceptedCommonName":"snake","PestStatus":"Venomous"}}
     ]
-def search_species(taxonid, city):
-    pass
+# def search_species(taxonid, city):
+#     pass
 
 
 main()
