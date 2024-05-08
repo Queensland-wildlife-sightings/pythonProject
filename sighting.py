@@ -12,10 +12,24 @@ def venomous_display():
     pass
 
 
+def filter_venomous(species_list):
+    #fiter to choice the Venomous
+    return [species for species in species_list 
+            if species['Species']['PestStatus'] == 'Venomous']
+
+
 def display_sightings(sightings):
-    pass
+    # print the list of animal sightings 
+    
+    for sighting in sightings:
+        print(f"Start Date: {sighting['properties']['StartDate']}, Locality: {sighting['properties']['LocalityDetails']}")
+
 
 def display_species(species_list):
+    #display each species in the list
+    # for species in species_list:
+    #     print(f"Species: {species['Species']['AcceptedCommonName']},
+    #             Pest Status: {species['Species']['PestStatus']}")
     pass
 
 def main():
@@ -65,8 +79,11 @@ def search_species(city):
         {"Species":{"AcceptedCommonName":"dolphin", "PestStatus":"Nil"}},
         {"Species":{"AcceptedCommonName":"snake","PestStatus":"Venomous"}}
     ]
-# def search_species(taxonid, city):
-#     pass
+
+def search_species(taxonid, city):
+    #  return a fixed list of animal sightings
+    return [{"properties": {"StartDate": "1999-11-15", 
+                            "LocalityDetails": "Tinaroo"}}]
 
 
 main()
