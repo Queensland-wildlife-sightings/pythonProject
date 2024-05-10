@@ -8,10 +8,6 @@ def display_menu():
     print("Display Venomous species            wildlife> species Cairns venomous")
 
 
-def venomous_display():
-    pass
-
-
 def filter_venomous(species_list):
     # fiter to choice the Venomous
     return [species for species in species_list
@@ -20,17 +16,17 @@ def filter_venomous(species_list):
 
 def display_sightings(sightings):
     # print the list of animal sightings 
-
+    print("Animal sightings:")
+    
     for sighting in sightings:
-        print(
-            f"Start Date: {sighting['properties']['StartDate']}, Locality: {sighting['properties']['LocalityDetails']}")
+        print(f"Start Date: {sighting['properties']['StartDate']}, Locality: {sighting['properties']['LocalityDetails']}")
 
 
 def display_species(species_list):
+    print("Species in the city:")
     # display_species(species_list) that prints a list of species to the screen
     for spec in species_list:
-        print(
-            f"Accepted Common Name: {spec['Species']['AcceptedCommonName']},Pest Status: {spec['Species']['PestStatus']}")
+        print(f"Accepted Common Name: {spec['Species']['AcceptedCommonName']},Pest Status: {spec['Species']['PestStatus']}")
 
 
 def main():
@@ -47,9 +43,23 @@ def main():
         elif input_commands[0] == "species":
             if len(input_commands) > 1:
                 city = input_commands[1]
+                if len(input_commands) > 2 and input_commands[2] == "venomous":
+                    spc_list = search_species(city)
+                    venomous_list = filter_venomous(spc_list)
+                    display_species(venomous_list)
+                else:
+                    spc_list = search_species(city)
+                    display_species(spc_list)
 
-                spc_list = search_species(city)
-                display_species(spc_list)
+        elif input_commands[0] == "sightings":
+            if len(input_commands) > 2:
+                species = input_commands[1]
+                city = input_commands[2]
+                sightings_list = search_sightings(species, city)
+                display_sightings(sightings_list)
+
+        elif command == "exit":
+            break
 
 
 
@@ -59,18 +69,20 @@ def main():
         # area. When this command is received, use the search_sightings(species,area) and
         # display_sightings(sightings) functions to display a list of sightings to the user.
 
-        elif command == "exit":
-            break
-
+        
 
 def search_sightings(species, area):
-    return [{"properties": {"StartDate": "1999-11-15", "LocalityDetails": "Tinaroo"}}]
+    return [{"properties": {"StartDate": "1999-11-15", 
+                            "LocalityDetails": "Tinaroo"}}]
 
 
 def search_species(city):
     return [
-        {"Species": {"AcceptedCommonName": "dolphin", "PestStatus": "Nil"}},
-        {"Species": {"AcceptedCommonName": "snake", "PestStatus": "Venomous"}}
+        {"Species": {"AcceptedCommonName": "dolphin", 
+                     "PestStatus": "Nil"}},
+        
+        {"Species": {"AcceptedCommonName": "snake",
+                      "PestStatus": "Venomous"}}
     ]
 
 
