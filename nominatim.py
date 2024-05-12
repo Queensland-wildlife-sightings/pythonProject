@@ -5,7 +5,7 @@ def gps_coordinates(city):
     resp  = requests.get(url)
     data = resp.json()
     # Extract and convertthe latitude and longitude strings into floats 
-    # and return a coordinate point 
+    
     return {"latitude": float(data[0]["lat"]), "longitude": float(data[0]["lon"])}
 
     #write assert statements that test the gps_coordinate() function
