@@ -1,3 +1,6 @@
+
+
+import nominatim
 def display_menu():
     print("Help:")
     print("=====")
@@ -9,24 +12,30 @@ def display_menu():
 
 
 def filter_venomous(species_list):
-    # fiter to choice the Venomous
-    return [species for species in species_list
-            if species['Species']['PestStatus'] == 'Venomous']
+    # filter the list of species to only include venomous species
+    return [spec for spec in species_list
+            if spec['Species']['PestStatus'] == "Venomous"]
+    # add asserts to check the function
+    assert (specie_list == {}) or (specie_list == []), "The list is empty"
+    assert (spec for spec in species_list)
+    [isinstance(spec, list), "not list type"]
 
 
 def display_sightings(sightings):
     # print the list of animal sightings 
     print("Animal sightings:")
-    
+
     for sighting in sightings:
-        print(f"Start Date: {sighting['properties']['StartDate']}, Locality: {sighting['properties']['LocalityDetails']}")
+        print(
+            f"Start Date: {sighting['properties']['StartDate']}, Locality: {sighting['properties']['LocalityDetails']}")
 
 
 def display_species(species_list):
     print("Species in the city:")
     # display_species(species_list) that prints a list of species to the screen
     for spec in species_list:
-        print(f"Accepted Common Name: {spec['Species']['AcceptedCommonName']},Pest Status: {spec['Species']['PestStatus']}")
+        print(
+            f"Accepted Common Name: {spec['Species']['AcceptedCommonName']},Pest Status: {spec['Species']['PestStatus']}")
 
 
 def main():
@@ -34,12 +43,9 @@ def main():
         command = input("wildlife> ")
         input_commands = command.split(" ")
 
-        # if len(input_commands) == 0 and command =="help" :
         if command == "help":
             display_menu()
 
-        # elif len(input_commands) == 0 and input_commands[0] == "exit":
-        #     break
         elif input_commands[0] == "species":
             if len(input_commands) > 1:
                 city = input_commands[1]
@@ -61,28 +67,24 @@ def main():
         elif command == "exit":
             break
 
-
-
-
-
         # Update main() to accept the command “sightings” followed by a species, a comma and an
         # area. When this command is received, use the search_sightings(species,area) and
         # display_sightings(sightings) functions to display a list of sightings to the user.
 
-        
 
 def search_sightings(species, area):
-    return [{"properties": {"StartDate": "1999-11-15", 
+    return [{"properties": {"StartDate": "1999-11-15",
                             "LocalityDetails": "Tinaroo"}}]
 
 
 def search_species(city):
+    gps(city)
     return [
-        {"Species": {"AcceptedCommonName": "dolphin", 
+        {"Species": {"AcceptedCommonName": "dolphin",
                      "PestStatus": "Nil"}},
-        
+
         {"Species": {"AcceptedCommonName": "snake",
-                      "PestStatus": "Venomous"}}
+                     "PestStatus": "Venomous"}}
     ]
 
 
@@ -90,6 +92,13 @@ def sear_species(taxonid, city):
     #  return a fixed list of animal sightings
     return [{"properties": {"StartDate": "1999-11-15",
                             "LocalityDetails": "Tinaroo"}}]
+
+def gps(city):
+    # return the GPS coordinates for a city
+    return {"latitude": -27.4689682, "longitude": 153.0234991 }
+
+    #Add assert statement(s) to check that Brisbane returns the correct GPS coordinate
+    assert gps("Brisbane") == {"latitude": -27.4689682, "longitude": 153.0234991}, "The GPS coordinates are incorrect"
 
 
 main()
