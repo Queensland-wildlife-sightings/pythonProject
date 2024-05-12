@@ -1,6 +1,7 @@
 
 
-import nominatim
+from nominatim import gps_coordinates
+import  wildlife
 def display_menu():
     print("Help:")
     print("=====")
@@ -73,19 +74,20 @@ def main():
 
 
 def search_sightings(species, area):
+  
+
     return [{"properties": {"StartDate": "1999-11-15",
                             "LocalityDetails": "Tinaroo"}}]
 
 
 def search_species(city):
-    gps(city)
-    return [
-        {"Species": {"AcceptedCommonName": "dolphin",
-                     "PestStatus": "Nil"}},
-
-        {"Species": {"AcceptedCommonName": "snake",
-                     "PestStatus": "Venomous"}}
-    ]
+    coordin =gps(city)
+    
+    
+    RADIUS = 100000
+    spec_lst =wildlife.get_species_list(coordin, RADIUS)
+    # 
+    return spec_lst
 
 
 def sear_species(taxonid, city):
@@ -95,9 +97,12 @@ def sear_species(taxonid, city):
 
 def gps(city):
     # return the GPS coordinates for a city
-    return {"latitude": -27.4689682, "longitude": 153.0234991 }
+    #return {"latitude": -27.4689682, "longitude": 153.0234991 }
+ 
 
-    #Add assert statement(s) to check that Brisbane returns the correct GPS coordinate
+    return gps_coordinates(city)
+
+    #Add assert statement
     assert gps("Brisbane") == {"latitude": -27.4689682, "longitude": 153.0234991}, "The GPS coordinates are incorrect"
 
 
