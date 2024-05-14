@@ -1,7 +1,7 @@
-
-
 from nominatim import gps_coordinates
-import  wildlife
+import wildlife
+
+
 def display_menu():
     print("Help:")
     print("=====")
@@ -16,10 +16,7 @@ def filter_venomous(species_list):
     # filter the list of species to only include venomous species
     return [spec for spec in species_list
             if spec['Species']['PestStatus'] == "Venomous"]
-    # add asserts to check the function
-    assert (specie_list == {}) or (specie_list == []), "The list is empty"
-    assert (spec for spec in species_list)
-    [isinstance(spec, list), "not list type"]
+
 
 
 def display_sightings(sightings):
@@ -43,8 +40,13 @@ def main():
     while True:
         command = input("wildlife> ")
         input_commands = command.split(" ")
+        if command == "" or type(command) != str \
+                or len(input_commands) == 0 \
+                or input_commands[0] != "species" \
+                or input_commands[0] != "sightings":
+            print("Please enter a command or type help for a list of commands.")
 
-        if command == "help":
+        elif command == "help":
             display_menu()
 
         elif input_commands[0] == "species":
@@ -53,6 +55,10 @@ def main():
                 if len(input_commands) > 2 and input_commands[2] == "venomous":
                     spc_list = search_species(city)
                     venomous_list = filter_venomous(spc_list)
+
+                    #test the filter function to return a list of venomous species
+                    for i in  range(len(venomous_list)):
+                        assert  spc_list[i]['Species']['PestStatus'] == "Venomous" , "must be a venomous species"
                     display_species(venomous_list)
                 else:
                     spc_list = search_species(city)
@@ -68,25 +74,19 @@ def main():
         elif command == "exit":
             break
 
-        # Update main() to accept the command “sightings” followed by a species, a comma and an
-        # area. When this command is received, use the search_sightings(species,area) and
-        # display_sightings(sightings) functions to display a list of sightings to the user.
-
 
 def search_sightings(species, area):
-  
-
     return [{"properties": {"StartDate": "1999-11-15",
                             "LocalityDetails": "Tinaroo"}}]
 
 
 def search_species(city):
-    coordin =gps(city)
-    
-    
+    coordin = gps(city)
+
     RADIUS = 100000
-    spec_lst =wildlife.get_species_list(coordin, RADIUS)
-    # 
+    spec_lst = wildlife.get_species_list(coordin, RADIUS)
+    # test the function
+    assert (spec_lst == {}) or (spec_lst == []), "The list is empty"
     return spec_lst
 
 
@@ -95,14 +95,14 @@ def sear_species(taxonid, city):
     return [{"properties": {"StartDate": "1999-11-15",
                             "LocalityDetails": "Tinaroo"}}]
 
+
 def gps(city):
     # return the GPS coordinates for a city
-    #return {"latitude": -27.4689682, "longitude": 153.0234991 }
- 
+    # return {"latitude": -27.4689682, "longitude": 153.0234991 }
 
     return gps_coordinates(city)
 
-    #Add assert statement
+    # Add assert statement
     assert gps("Brisbane") == {"latitude": -27.4689682, "longitude": 153.0234991}, "The GPS coordinates are incorrect"
 
 
