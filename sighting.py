@@ -18,7 +18,6 @@ def filter_venomous(species_list):
             if spec['Species']['PestStatus'] == "Venomous"]
 
 
-
 def display_sightings(sightings):
     # print the list of animal sightings 
     print("Animal sightings:")
@@ -56,10 +55,10 @@ def main():
                     spc_list = search_species(city)
                     venomous_list = filter_venomous(spc_list)
 
-
-                    #test the filter function to return a list of venomous species
-                    for i in  range(len(venomous_list)):
-                        assert  spc_list[i]['Species']['PestStatus'] == "Venomous" , "must be a venomous species"
+                    # test the filter function to return a list of venomous species
+                    assert len(venomous_list) != 0, "The list is empty"
+                    for i in range(len(venomous_list)):
+                        assert spc_list[i]['Species']['PestStatus'] == "Venomous", "must be a venomous species"
 
                     display_species(venomous_list)
                 else:
@@ -84,6 +83,7 @@ def search_sightings(species, area):
 
 def search_species(city):
     coordin = gps(city)
+    assert gps("Brisbane") == {"latitude": -27.4689682, "longitude": 153.0234991}, "The GPS coordinates are incorrect"
 
     RADIUS = 100000
     spec_lst = wildlife.get_species_list(coordin, RADIUS)
@@ -104,8 +104,7 @@ def gps(city):
 
     return gps_coordinates(city)
 
-    # Add assert statement
-    assert gps("Brisbane") == {"latitude": -27.4689682, "longitude": 153.0234991}, "The GPS coordinates are incorrect"
+
 
 
 main()
