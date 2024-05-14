@@ -9,15 +9,17 @@ def get_species_list(coordinate, radius ):
     radius: the radius of the area to search
     """
     lst = []
-    url = f"https://apps.des.qld.gov.au/species/?getspecieslist&kingdom=animals&circle={coordinate},{radius}"
-    resp = requests.get(url)
+    url =  "https://apps.des.qld.gov.au/species/"
+    params = {"op": "getspecieslist", "kingdom": "animals", "circle": coordinate, "radius": radius}
+    resp = requests.get(url,params)
     # Extract and return the species list.
-    print(resp.content)
-    rst =json.loads(resp.content)
-    for i in range(len(rst["SpeciesSightingSummariesContainer"][1])):
-        lst = lst.append(rst( ["SpeciesSightingSummariesContainer"][1][i][0]))
-
-    return lst
+    container=json.loads(resp.content)
+    species=container["SpeciesSightingSummariesContainer"]["SpeciesSightingSummary"]
+    print(species)
+    # for i in range(len(rst["SpeciesSightingSummariesContainer"]["SpeciesSightingSummary"])):
+    #     lst =  rst ["SpeciesSightingSummariesContainer"]["SpeciesSightingSummary"][i]["Species"]
+    #
+    # return lst
 
 
 
