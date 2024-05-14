@@ -39,13 +39,8 @@ def main():
     while True:
         command = input("wildlife> ")
         input_commands = command.split(" ")
-        if command == "" or type(command) != str \
-                or len(input_commands) == 0 \
-                or input_commands[0] != "species" \
-                or input_commands[0] != "sightings":
-            print("Please enter a command or type help for a list of commands.")
 
-        elif command == "help":
+        if command == "help":
             display_menu()
 
         elif input_commands[0] == "species":
@@ -82,6 +77,11 @@ def search_sightings(species, area):
 
 
 def search_species(city):
+    """
+    function to search the species of the city
+    :param city: city that user want to search for species
+    :return:  the list of  species in the city
+    """
     coordin = gps(city)
     assert gps("Brisbane") == {"latitude": -27.4689682, "longitude": 153.0234991}, "The GPS coordinates are incorrect"
 
@@ -91,11 +91,9 @@ def search_species(city):
     assert (spec_lst == {}) or (spec_lst == []), "The list is empty"
     return spec_lst
 
-
-def sear_species(taxonid, city):
-    #  return a fixed list of animal sightings
-    return [{"properties": {"StartDate": "1999-11-15",
-                            "LocalityDetails": "Tinaroo"}}]
+    # return [
+    #     {"Species":{"AcceptedCommonName":"dolphin", "PestStatus":"Nil"}},
+    #     {"Species":{"AcceptedCommonName":"snake","PestStatus":"Venomous"}}]
 
 
 def gps(city):
@@ -103,8 +101,6 @@ def gps(city):
     # return {"latitude": -27.4689682, "longitude": 153.0234991 }
 
     return gps_coordinates(city)
-
-
 
 
 main()
