@@ -56,9 +56,11 @@ def main():
                     spc_list = search_species(city)
                     venomous_list = filter_venomous(spc_list)
 
+
                     #test the filter function to return a list of venomous species
                     for i in  range(len(venomous_list)):
                         assert  spc_list[i]['Species']['PestStatus'] == "Venomous" , "must be a venomous species"
+
                     display_species(venomous_list)
                 else:
                     spc_list = search_species(city)
