@@ -52,9 +52,11 @@ def main():
 
                     # test the filter function to return a list of venomous species
                     assert len(venomous_list) != 0, "The list is empty"
-                    for i in range(len(venomous_list)):
-                        assert spc_list[i]['Species']['PestStatus'] == "Venomous", "must be a venomous species"
-
+                   
+                    # Test if the venomous list contains non-venomous species
+                    for spec in venomous_list:
+                        assert spec['Species']['PestStatus'] == "Venomous", "contain non venomous species"
+                    
                     display_species(venomous_list)
                 else:
                     spc_list = search_species(city)
