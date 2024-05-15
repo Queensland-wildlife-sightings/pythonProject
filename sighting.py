@@ -18,7 +18,6 @@ def filter_venomous(species_list):
             if spec['Species']['PestStatus'] == "Venomous"]
 
 
-
 def display_sightings(sightings):
     # print the list of animal sightings 
     print("Animal sightings:")
@@ -40,10 +39,15 @@ def main():
     while True:
         command = input("wildlife> ")
         input_commands = command.split(" ")
+<<<<<<< HEAD
         if len(command) == 0 :
             print("Please enter a command or type help for a list of commands.")
             
         elif "help" in input_commands: #[0] == "help":
+=======
+
+        if command == "help":
+>>>>>>> 57c0b68073acaf22a7721109199530efb251fa25
             display_menu()
 
         elif input_commands[0] == "species":
@@ -52,11 +56,22 @@ def main():
                 if len(input_commands) > 2 and input_commands[2] == "venomous":
                     spc_list = search_species(city)
                     venomous_list = filter_venomous(spc_list)
+<<<<<<< HEAD
                     # Test the filter function to return an empty list
                     assert len(venomous_list) == 0, "The list is empty"
                     # Test if the venomous list contains non-venomous species
                     for spec in venomous_list:
                         assert spec['Species']['PestStatus'] == "Venomous", "Contain non-venomous species"
+=======
+
+                    # test the filter function to return a list of venomous species
+                    assert len(venomous_list) != 0, "The list is empty"
+                   
+                    # Test if the venomous list contains non-venomous species
+                    for spec in venomous_list:
+                        assert spec['Species']['PestStatus'] == "Venomous", "contain non venomous species"
+                    
+>>>>>>> 57c0b68073acaf22a7721109199530efb251fa25
                     display_species(venomous_list)
                 else:
                     spc_list = search_species(city)
@@ -80,7 +95,13 @@ def search_sightings(species, area):
 
 
 def search_species(city):
+    """
+    function to search the species of the city
+    :param city: city that user want to search for species
+    :return:  the list of  species in the city
+    """
     coordin = gps(city)
+    assert gps("Brisbane") == {"latitude": -27.4689682, "longitude": 153.0234991}, "The GPS coordinates are incorrect"
 
     RADIUS = 100000
     spec_lst = wildlife.get_species_list(coordin, RADIUS)
@@ -88,11 +109,9 @@ def search_species(city):
     assert (spec_lst == {}) or (spec_lst == []), "The list is empty"
     return spec_lst
 
-
-def sear_species(taxonid, city):
-    #  return a fixed list of animal sightings
-    return [{"properties": {"StartDate": "1999-11-15",
-                            "LocalityDetails": "Tinaroo"}}]
+    # return [
+    #     {"Species":{"AcceptedCommonName":"dolphin", "PestStatus":"Nil"}},
+    #     {"Species":{"AcceptedCommonName":"snake","PestStatus":"Venomous"}}]
 
 
 def gps(city):
@@ -100,9 +119,6 @@ def gps(city):
     # return {"latitude": -27.4689682, "longitude": 153.0234991 }
 
     return gps_coordinates(city)
-
-    # Add assert statement
-    assert gps("Brisbane") == {"latitude": -27.4689682, "longitude": 153.0234991}, "The GPS coordinates are incorrect"
 
 
 main()
