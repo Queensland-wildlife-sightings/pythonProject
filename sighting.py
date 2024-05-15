@@ -40,13 +40,10 @@ def main():
     while True:
         command = input("wildlife> ")
         input_commands = command.split(" ")
-        if command == "" or type(command) != str \
-                or len(input_commands) == 0 \
-                or input_commands[0] != "species" \
-                or input_commands[0] != "sightings":
+        if len(command) == 0 :
             print("Please enter a command or type help for a list of commands.")
-
-        elif command == "help":
+            
+        elif "help" in input_commands: #[0] == "help":
             display_menu()
 
         elif input_commands[0] == "species":
@@ -55,10 +52,11 @@ def main():
                 if len(input_commands) > 2 and input_commands[2] == "venomous":
                     spc_list = search_species(city)
                     venomous_list = filter_venomous(spc_list)
-                    #test the filter function to return an empty list
-                    assert venomous_list == [], "The list is empty"
-                    #test the filter function to return a list of venomous species
-                    assert (for spec in venomous_list if spec['Species']['PestStatus'] == "Venomous"), "contain non venomous species"
+                    # Test the filter function to return an empty list
+                    assert len(venomous_list) == 0, "The list is empty"
+                    # Test if the venomous list contains non-venomous species
+                    for spec in venomous_list:
+                        assert spec['Species']['PestStatus'] == "Venomous", "Contain non-venomous species"
                     display_species(venomous_list)
                 else:
                     spc_list = search_species(city)
@@ -73,7 +71,8 @@ def main():
 
         elif command == "exit":
             break
-
+        else:
+            print("Invalid command. Type 'help' for a list of commands.")
 
 def search_sightings(species, area):
     return [{"properties": {"StartDate": "1999-11-15",

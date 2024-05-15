@@ -1,4 +1,5 @@
 import requests
+import json
 
 def get_species_list(coordinate,radius):
     url  = f"https://apps.des.qld.gov.au/species/?getspecieslist&kingdom=animals&circle={coordinate},{radius}"
