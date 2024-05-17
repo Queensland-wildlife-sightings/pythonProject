@@ -68,3 +68,7 @@ AI-generated code. Review and use carefully. More info on FAQ.
 Test Steps:
 Call the search_species function with the provided input.
 Verify that the output matches the expected result.
+
+![Task5_Test1_result_sucess](https://github.com/Queensland-wildlife-sightings/Intro-To-Programming-Assignment2/assets/162095163/50e856b9-4802-40b8-b48f-9a113d784562)
+![Task5_Test1_result_error](https://github.com/Queensland-wildlife-sightings/Intro-To-Programming-Assignment2/assets/162095163/b21588d8-a6f5-4750-bad0-7122d58c27b8)
+
