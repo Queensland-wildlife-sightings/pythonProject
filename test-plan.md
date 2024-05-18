@@ -1,9 +1,14 @@
 Test Plan reports
-	Debug and document your main() function.
+
+	Debug and document your main() function.\
 This photo indicates the error of input led to not return the correct item.
- 
+
+![Task_main()_error1](https://github.com/Queensland-wildlife-sightings/Intro-To-Programming-Assignment2/assets/162095163/ef16cb5a-8b29-4467-b9dd-62c73d2f8b29)
+
 The following photo shows the result after fixing the “elif” statement. The results shows when inputting the correct command will correctly execute the mani().
  
+![Task3_main()_debug2](https://github.com/Queensland-wildlife-sightings/Intro-To-Programming-Assignment2/assets/162095163/0c507ec2-7ef2-44b1-85ee-1a0dd7b9b63a)
+
 
  
 Tast5  Test Plan: Venomous Species Filtering
