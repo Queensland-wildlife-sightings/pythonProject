@@ -1,4 +1,4 @@
-from nominatim import gps_coordinates
+import nominatim
 import wildlife
 
 
@@ -40,7 +40,11 @@ def main():
         command = input("wildlife> ")
         input_commands = command.split(" ")
 
-        if command == "help":
+        if len(command) == 0:
+            print("Please enter a command or type help for a list of commands.")
+
+        elif "help" in input_commands:  # [0] == "help":
+
             display_menu()
 
         elif input_commands[0] == "species":
@@ -50,8 +54,15 @@ def main():
                     spc_list = search_species(city)
                     venomous_list = filter_venomous(spc_list)
 
-                    for i in range(len(venomous_list)):
-                        assert spc_list[i]['Species']['PestStatus'] == "Venomous", "must be a venomous species"
+                    assert len(venomous_list) == 0, "The list is empty"
+                    # Test if the venomous list contains non-venomous species
+
+                    # test the filter function to return a list of venomous species
+                    assert len(venomous_list) != 0, "The list is empty"
+
+                    # Test if the venomous list contains non-venomous species
+                    for spec in venomous_list:
+                        assert spec['Species']['PestStatus'] == "Venomous", "contain non venomous species"
 
                     display_species(venomous_list)
                 else:
@@ -67,6 +78,8 @@ def main():
 
         elif command == "exit":
             break
+        else:
+            print("Invalid command. Type 'help' for a list of commands.")
 
 
 def search_sightings(species, area):
@@ -96,7 +109,7 @@ def gps(city):
     # return the GPS coordinates for a city
     # return {"latitude": -27.4689682, "longitude": 153.0234991 }
 
-    gps_coordinates(city)
+    nominatim.gps_coordinates(city)
 
 
 main()

@@ -1,31 +1,29 @@
-import requests,json
+import requests, json
 
 
-def get_species_list(coordinate, radius ):
-
+def get_species_list(coordinate, radius):
     """
     Get the species list from the website.
     args: coordinate: the GPS coordinates of the location
     radius: the radius of the area to search
     """
     lst = []
-    url =  "https://apps.des.qld.gov.au/species/"
+    url = "https://apps.des.qld.gov.au/species/"
     params = {"op": "getspecieslist", "kingdom": "animals", "circle": coordinate, "radius": radius}
-    resp = requests.get(url,params)
-    print(resp.status_code)
+    resp = requests.get(url, params)
+
     print(resp.content)
 
     # Extract and return the species list.
-    container=json.loads(resp.content)
+    container = json.loads(resp.content)
 
+    # species = container["SpeciesSightingSummariesContainer"]["SpeciesSightingSummary"]
+    # print(species)
+    # return the list of species
+    for species in container["SpeciesSightingSummariesContainer"]["SpeciesSightingSummary"]:
+        lst.append(species)
 
-    species=container["SpeciesSightingSummariesContainer"]["SpeciesSightingSummary"]
-    print(species)
-    # for i in range(len(rst["SpeciesSightingSummariesContainer"]["SpeciesSightingSummary"])):
-    #     lst =  rst ["SpeciesSightingSummariesContainer"]["SpeciesSightingSummary"][i]["Species"]
-    #
-    # return lst
-
+    return lst
 
 
 def get_survey_by_species(coordinate, radius, taxonid):
