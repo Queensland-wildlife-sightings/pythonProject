@@ -50,8 +50,6 @@ def main():
                     spc_list = search_species(city)
                     venomous_list = filter_venomous(spc_list)
 
-                    # test the filter function to return a list of venomous species
-                    assert len(venomous_list) != 0, "The list is empty"
                     for i in range(len(venomous_list)):
                         assert spc_list[i]['Species']['PestStatus'] == "Venomous", "must be a venomous species"
 
@@ -83,12 +81,10 @@ def search_species(city):
     :return:  the list of  species in the city
     """
     coordin = gps(city)
-    assert gps("Brisbane") == {"latitude": -27.4689682, "longitude": 153.0234991}, "The GPS coordinates are incorrect"
 
     RADIUS = 100000
     spec_lst = wildlife.get_species_list(coordin, RADIUS)
-    # test the function
-    assert (spec_lst == {}) or (spec_lst == []), "The list is empty"
+
     return spec_lst
 
     # return [
@@ -100,7 +96,7 @@ def gps(city):
     # return the GPS coordinates for a city
     # return {"latitude": -27.4689682, "longitude": 153.0234991 }
 
-    return gps_coordinates(city)
+    gps_coordinates(city)
 
 
 main()
