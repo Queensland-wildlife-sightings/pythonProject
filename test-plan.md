@@ -64,7 +64,7 @@ Python
     {"Species": {"AcceptedCommonName": "spider", "PestStatus": "Venomous"}},
     {"Species": {"AcceptedCommonName": "lizard", "PestStatus": "NonVenomous"}}
 ]
-AI-generated code. Review and use carefully. More info on FAQ.
+
 Test Steps:
 Call the search_species function with the provided input.
 Verify that the output matches the expected result.
