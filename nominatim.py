@@ -24,7 +24,7 @@ def gps_coordinates(city):
     params = {"q": city, "format": "json"}
 
     response = requests.get(URL, params)
-    print(response.content)
+
     result = response.json()[0]  # Parse the JSON data
 
     if city == "Brisbane":

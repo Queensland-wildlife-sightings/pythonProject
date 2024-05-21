@@ -12,14 +12,12 @@ def get_species_list(coordinate, radius):
     params = {"op": "getspecieslist", "kingdom": "animals", "circle": coordinate, "radius": radius}
     resp = requests.get(url, params)
 
-    print(resp.content)
-
     # Extract and return the species list.
     container = json.loads(resp.content)
 
     # species = container["SpeciesSightingSummariesContainer"]["SpeciesSightingSummary"]
     # print(species)
-    # return the list of species
+    # return the species list
     for species in container["SpeciesSightingSummariesContainer"]["SpeciesSightingSummary"]:
         lst.append(species)
 
@@ -27,7 +25,9 @@ def get_species_list(coordinate, radius):
 
 
 def get_survey_by_species(coordinate, radius, taxonid):
-    url = f"https://apps.des.qld.gov.au/species/?getsurveysbyspecies&taxonid={taxonid}&circle={coordinate},{radius}"
-    rsp = requests.get(url)
-    # Extract and return the list of surveys
-    return rsp.json()["features"]["properties"]
+    url = f"https://apps.des.qld.gov.au/species/?getsurveysbyspecies&taxonid"
+    params = {"op": "getsurveysbyspecies", "taxonid": taxonid, "circle": coordinate, "radius": radius}
+    rsp = requests.get(url,params)
+   ## retrieve a lis of animal surveys in an area for a given species (taxonid)
+    container = json.loads(rsp.content)
+    return container["SpeciesSightingSummariesContainer"]["SpeciesSightingSummary"]

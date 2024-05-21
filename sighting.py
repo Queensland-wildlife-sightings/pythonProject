@@ -8,7 +8,7 @@ def display_menu():
     print("Display  help                       wildlife> help")
     print("Exit the application                wildlife> exit")
     print("Display animal species in a city    wildlife> species city")
-    print("Display animal sightings in a city  wildlife> sightings Cairns 1039")
+    print("Display animal sightings in a city  wildlife> sightings  1039 Cairns")
     print("Display Venomous species            wildlife> species Cairns venomous")
 
 
@@ -28,11 +28,25 @@ def display_sightings(sightings):
 
 
 def display_species(species_list):
+
     print("Species in the city:")
     # display_species(species_list) that prints a list of species to the screen
+    # for spec in species_list:
+    #     print(
+    #         f"Accepted Common Name: {spec['Species']['AcceptedCommonName']},Pest Status: {spec['Species']['PestStatus']}")
     for spec in species_list:
-        print(
-            f"Accepted Common Name: {spec['Species']['AcceptedCommonName']},Pest Status: {spec['Species']['PestStatus']}")
+        accepted_common_name = "Unknown "
+        pest_status = "Nil"
+
+        if isinstance(spec, dict) and 'Species' in spec:
+            species_dict = spec['Species']
+            if isinstance(species_dict, dict):
+                if 'AcceptedCommonName' in species_dict:
+                    accepted_common_name = species_dict['AcceptedCommonName']
+                if 'PestStatus' in species_dict:
+                    pest_status = species_dict['PestStatus']
+
+        print(f"Accepted Common Name: {accepted_common_name}, Pest Status: {pest_status}")
 
 
 def main():
@@ -71,9 +85,9 @@ def main():
 
         elif input_commands[0] == "sightings":
             if len(input_commands) > 2:
-                species = input_commands[1]
+                toxonid = input_commands[1]
                 city = input_commands[2]
-                sightings_list = search_sightings(species, city)
+                sightings_list = search_sightings(toxonid, city)
                 display_sightings(sightings_list)
 
         elif command == "exit":
@@ -82,9 +96,26 @@ def main():
             print("Invalid command. Type 'help' for a list of commands.")
 
 
-def search_sightings(species, area):
-    return [{"properties": {"StartDate": "1999-11-15",
-                            "LocalityDetails": "Tinaroo"}}]
+def search_sightings(toxonid, area):
+    """
+    function to search the sightings of the species in the area
+    :param toxonid: the species id
+    :param area: the area that user want to search for sightings
+    :return: the list of sightings in the area
+    """
+    coordin = gps(area)
+
+    RADIUS = 100000
+    sighting_lst = wildlife.get_survey_by_species(coordin, RADIUS, toxonid)
+
+    #Filter out the sightings by choosing only those surveys for which the SiteCode is INCIDENTAL.
+    sighting_lst = [sighting for sighting in sighting_lst if sighting['properties']['SiteCode'] == "INCIDENTAL"]
+
+    return sighting_lst # return the list of sightings
+
+    # return [
+    #     {"properties": {"StartDate": "2021-01-01", "LocalityDetails": "Cairns"}},
+    #     {"properties": {"StartDate": "2021-01-02", "LocalityDetails": "Brisbane"}}]
 
 
 def search_species(city):
